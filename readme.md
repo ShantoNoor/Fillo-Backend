@@ -1,11 +1,15 @@
-# Food Titan
+# Projrct Name: Fillo
 
-# Assignment_Category_0005
+## It is a task management application built using the MERN stack.
 
-## Live Site Link: https://foodtitan-764d1.web.app/
+## Live Link:
 
-- Uses can add food items
-- Uses can order food items
-- Uses can delete their food items
-- Uses can delete odrer food items
-- Uses can update their food items
+https://fillo-task-manager.web.app/
+
+## Technology Used:
+
+### Frontend: React JS, React Hook Form, Material UI, DND Kit, Firebase Authentication, React Hot Toast
+
+### Backend: Express JS, MongoDB, Mongoose JS
+
+# Main Feature Users can drag and Drop tasks to manage them.
