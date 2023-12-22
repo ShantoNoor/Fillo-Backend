@@ -3,6 +3,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 import User from "./models/User.model.js";
+import TaskList from "./models/TaskList.model.js";
 
 config({
   path: ".env.local",
@@ -45,6 +46,66 @@ app.post("/users", async (req, res) => {
       return res.status(400).send(err.message);
     } else {
       return res.status(409).send("User already exists");
+    }
+  }
+});
+
+app.post("/tasklists", async (req, res) => {
+  try {
+    const tasklist = new TaskList(req.body);
+    const result = await tasklist.save();
+    return res.status(201).send(result);
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.message);
+    } else {
+      return res.status(409).send("TaskList already exists");
+    }
+  }
+});
+
+
+
+
+app.get("/tasklists", async (req, res) => {
+  try {
+    return res.send(await TaskList.find(req.query));
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.message);
+    } else {
+      return res.status(500).send("Something went wrong");
+    }
+  }
+});
+
+app.put("/tasklists", async (req, res) => {
+  try {
+    const result = await TaskList.updateOne(
+      { user: req.body.user },
+      { $set: req.body },
+      { upsert: true, setDefaultsOnInsert: true }
+    );
+    return res.status(200).send(result);
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.message);
+    } else {
+      return res.status(500).send("Something went wrong");
+    }
+  }
+});
+
+app.post("/tasklists", async (req, res) => {
+  try {
+    const tasklist = new TaskList(req.body);
+    const result = await tasklist.save();
+    return res.status(201).send(result);
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.message);
+    } else {
+      return res.status(409).send("Tasklist already exists");
     }
   }
 });
